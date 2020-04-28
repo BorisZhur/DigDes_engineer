@@ -28,7 +28,7 @@ namespace ConsoleApp1
         }//*/
         abstract class absClass
         {
-            /*public static void Display()
+            public static void Display()
             {
                 Console.WriteLine("Hello world");
             }//*/
@@ -46,16 +46,6 @@ namespace ConsoleApp1
                 Console.Write(cl.Name);
                 Console.Write(" ");
                 Console.WriteLine(cl.IsAbstract);
-                /*if (cl.IsAbstract)
-                {
-                    Type absType = cl;
-                    Console.WriteLine(absType);
-                    ConstructorInfo absConstructor = absType.GetConstructor(Type.EmptyTypes);
-                    object absClassObject = absConstructor.Invoke(new object[] { });
-                    MethodInfo absMethod = absType.GetMethod("Print");
-
-
-                }//*/
                 Console.WriteLine("**************************************************************************");
                 MethodInfo[] mi = cl.GetMethods(BindingFlags.Instance
                            | BindingFlags.Static
@@ -72,10 +62,10 @@ namespace ConsoleApp1
                     ConstructorInfo absConstructor = ci[0];
                     object absClassObject = absConstructor.Invoke(new object[] { });
                     MethodInfo absMethod = absType.GetMethod("Print");
-                }
+                }//*/
 
 
-                    foreach (var tt in ci)
+                    foreach (var tt in mi)
                 {
                     Console.Write(tt.Name);
                     Console.Write(" ");
@@ -88,6 +78,19 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Reflection();
+            /*Assembly asm = Assembly.LoadFrom("ConsoleApp1.dll");
+
+            Type t = asm.GetType("ConsoleApp1.Program+absClass", true, true);
+
+            // создаем экземпляр класса Program
+            object obj = Activator.CreateInstance(t);
+
+            // получаем метод GetResult
+            MethodInfo method = t.GetMethod("Print");
+
+            // вызываем метод, передаем ему значения для параметров и получаем результат
+            object result = method.Invoke(obj, new object[] { 6, 100, 3 });
+            Console.WriteLine((result));//*/
             Console.WriteLine();
 
 
