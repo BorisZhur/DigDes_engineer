@@ -77,13 +77,13 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
-            Reflection();
-            /*Assembly asm = Assembly.LoadFrom("ConsoleApp1.dll");
+            //Reflection();
+            Assembly asm = Assembly.LoadFrom("System.Reflection.dll");
 
             Type t = asm.GetType("ConsoleApp1.Program+absClass", true, true);
 
             // создаем экземпляр класса Program
-            object obj = Activator.CreateInstance(t);
+            /*object obj = Activator.CreateInstance(t);
 
             // получаем метод GetResult
             MethodInfo method = t.GetMethod("Print");
