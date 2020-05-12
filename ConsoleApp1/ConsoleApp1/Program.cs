@@ -5,20 +5,7 @@ namespace ConsoleApp1
 {
     class Program
     {
-        /*public class MagicClass
-        {
-            private int magicBaseValue;
-
-            public MagicClass()
-            {
-                magicBaseValue = 9;
-            }
-
-            public int ItsMagic(int preMagic)
-            {
-                return preMagic * magicBaseValue;
-            }
-        }//*/
+ 
         class Addition
         {
             public Addition(int a)
@@ -39,60 +26,72 @@ namespace ConsoleApp1
         }
         public static void Reflection()
         {
-            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes();
+            Type t = typeof(System.Reflection.MethodInfo);
+            Assembly asm = t.Assembly;
+            Type[] typelist = asm.GetTypes();
             foreach (Type cl in typelist)
             {
                 Console.WriteLine("");
-                Console.Write(cl.Name);
+                //Console.Write(cl.Name);
                 Console.Write(" ");
-                Console.WriteLine(cl.IsAbstract);
-                Console.WriteLine("**************************************************************************");
+                //Console.WriteLine(cl.IsAbstract);
+                //Console.WriteLine("**************************************************************************");
                 MethodInfo[] mi = cl.GetMethods(BindingFlags.Instance
                            | BindingFlags.Static
                            | BindingFlags.Public
-                           | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);//*/
+                           | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
                 ConstructorInfo[] ci = cl.GetConstructors(BindingFlags.Instance
-                           | BindingFlags.Static
-                           | BindingFlags.Public
-                           | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);//*/
-                if (cl.IsAbstract)
+                            | BindingFlags.Static
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+
+
+                if (cl.Name == "Invoke")
                 {
-                    Type absType = cl;
-                    Console.WriteLine(absType);
-                    ConstructorInfo absConstructor = ci[0];
-                    object absClassObject = absConstructor.Invoke(new object[] { });
-                    MethodInfo absMethod = absType.GetMethod("Print");
-                }//*/
-
-
+                    Console.Write(cl.Name);
+                    Console.WriteLine(cl.IsAbstract);
                     foreach (var tt in mi)
-                {
-                    Console.Write(tt.Name);
-                    Console.Write(" ");
-                    Console.WriteLine(tt.IsAbstract);
+                    {
+                        Console.Write(tt.Name);
+                        Console.Write(" ");
+                        Console.WriteLine(tt.IsAbstract);
+                    }
                 }
-
                 Console.WriteLine("");
             }
-        }
+        }       //*/
         static void Main(string[] args)
         {
-            Reflection();
-            /*Assembly asm = Assembly.LoadFrom("ConsoleApp1.dll");
+            //Reflection();
+            //знаешь что в этой библ есть класс методинфо. писать тайпоф методинфо. поучаем экз тайпоф методинфо. дальше через точку можно плучить экз ассемблей этого класса
+            //можно по др пути, нашел метод инвок, класс приватный, поискать в этой библиотеки другие публичные классы из него взять, получать ассемблей 
+            //Type t = typeof(System.Reflection.MethodInfo);
+            /*Type t = typeof(Program);
+            Assembly asm = t.Assembly;
+            //object obj = Activator.CreateInstance(t);
+            Console.WriteLine(asm);
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            MethodInfo[] mi = t.GetMethods();
+            //MethodInfo mi2 = t.GetMethod("Invoke");
 
-            Type t = asm.GetType("ConsoleApp1.Program+absClass", true, true);
+            MethodInfo mi2 = t.GetMethod("Invoke", new Type[] { t, t });
+            foreach (var tt in mi)
+            {
+                Console.Write(tt.Name);
+                Console.WriteLine(" ");
+                
+                if ((tt.Name == "Invoke")
+                    //&&(!tt.IsAbstract)
+                    )
+                {
+                    //object result = tt.Invoke(obj, new object[] { });
+                    Console.WriteLine(tt.GetType());
+                }
+            }//*/
 
-            // создаем экземпляр класса Program
-            object obj = Activator.CreateInstance(t);
-
-            // получаем метод GetResult
-            MethodInfo method = t.GetMethod("Print");
-
-            // вызываем метод, передаем ему значения для параметров и получаем результат
-            object result = method.Invoke(obj, new object[] { 6, 100, 3 });
-            Console.WriteLine((result));//*/
             Console.WriteLine();
-
+            Console.WriteLine();
 
         }
     }
