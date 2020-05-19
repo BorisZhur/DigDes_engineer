@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "xbGGh13KaVDDXUeXG19GghB/Ga5cKACvqnQp1GPWfu96lyYK1JQTALd4sCAzKDukf399huCdG3ZOA93YunrRhQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\boris\\Documents\\GitHub\\DigDes_engineer\\imgReaderThreads\\imgReaderThreads\\imgReaderThreads.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\boris\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\boris\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\boris\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
