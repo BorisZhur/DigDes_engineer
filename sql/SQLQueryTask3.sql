@@ -1,3 +1,4 @@
+USE AdventureWorksDW2017;
 select mnth,yr, Sum(SalesAmount) as total
 from (
 select SalesAmount,MONTH( OrderDate) as mnth, YEAR(OrderDate) as yr from FactResellerSales

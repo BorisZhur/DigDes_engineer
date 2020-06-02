@@ -1,3 +1,4 @@
+USE AdventureWorksDW2017;
 select * from
 (
 select top 1 with ties * from FactInternetSales

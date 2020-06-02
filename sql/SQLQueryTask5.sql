@@ -1,3 +1,4 @@
+
 create PROCEDURE proced1
     @date1 datetime,
 	@date2 datetime,
@@ -7,6 +8,8 @@ AS
     select @k = count(*) from DimEmployee where (BirthDate>=@date1)and(BirthDate<=@date2)and(MaritalStatus='S')
 
 go
+
+USE AdventureWorksDW2017;
 declare @kk INT
 declare @data_1 datetime
 declare @data_2 datetime
