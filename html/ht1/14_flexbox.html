@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>14_Верстка с помощью Flexbox</title>
+	<style>
+		.mysite{
+			display: flex; /* включаем режим Flexbox */
+			flex-direction: column; /* дочерние элементы будут располагаться сверху вниз */
+            text-align:center;
+			padding: 50px 100px;
+		}
+		.header{
+			border: 1px gray solid;			
+		}		
+		.content{
+			display: flex; /* включаем режим Flexbox */
+			flex-direction: row; /* дочерние элементы будут располагаться слева на право */
+            text-align:center;			
+		}
+		.column{
+			flex: 1; /* столбцы будут иметь одинаковый размер при изменении разрешения */
+			border: 1px gray solid;
+		}
+		.footer{
+			border: 1px gray solid;					
+		}
+	</style>
+	</head>
+	<body>
+		<div class="mysite">
+			<div class="header">Заголовок сайта</div>
+			<div class="content">
+				<div class="column">Картина</div>
+				<div class="column">Описание</div>
+			</div>
+			<div class="footer">Подвал сайта</div>
+		</div>
+	</body>
+</html>

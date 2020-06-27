@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>09_Элемент input</title>
+  </head>
+  <body style="margin-left: 200px">
+  
+  <h1>Текстовые элементы input</h1>
+
+	<h3>Начальное значение (value)</h3>
+	<input type="text" value="Digital Design" />
+
+	<h3>Начальное приглашение (placeholder)</h3>
+	<input type="text" placeholder="Введите наименование" />
+	
+	<h3>Только для чтение (readonly)</h3>
+	<input type="text" value="только для чтения" readonly />
+	
+	<h3>Поле выключено (disabled)</h3>
+	<input type="text" value="поле выключено" disabled />
+
+	<h3>Огрнаичение maxlength=11</h3>
+	<input type="text" placeholder="Введите номер телефона" size="18" maxlength="11" />    
+
+	<h3>Поле ввода пароля</h3>
+	<input type="password" placeholder="Введите пароль" /> 
+
+	<h3>Поле ввода со списком</h3>
+	<input list="language" type="text" placeholder="Введите язык" /> 
+    <datalist id="language">
+		<option value="C#" />
+        <option value="SQL" />
+        <option value="JavaScript" />
+    </datalist>	
+
+	<br>
+	<h3>Многострочное текстовое поле (100 столбцов 20 строк)</h3>
+	<textarea cols="100" rows="20" placeholder="Введите текст (не более 2000 символов)" maxlength="2000"></textarea> 
+	
+  </body>
+</html>

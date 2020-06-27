@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<base href="image/">
+		<title>12_Селекторы CSS</title>
+		<style>
+			/* 1. Селектор и стиль для элемента с уникальным идентификатором id="content" */
+			#content{
+				margin-left: 200px; //элементы будут сдвинуты вправо
+			}
+			/* 2. Стиль для всех элементов div на странице. В селекторе просто указываем назавание HTML-элемента */
+			div{
+				margin: 10px;
+			}
+
+			/* 3. Селектор и стили для элементов с атрибутом class="header1" */
+			.header1{ 
+				font-size: 24px;
+				font-weight: 800;
+				margin: 20px;
+			}
+
+			/* 4. Селектор и стили для элементов с атрибутом class="header2" */
+			.header2{ 
+				font-size: 20px;
+				font-weight: 600;
+				margin: 15px;
+			}
+
+			/* 5. Селектор и стили для элементов с атрибутом class="black-square" */
+			/*    все три квадрата соответствуют критериям */
+			.black-square{
+				background-color: black;
+				width: 150px;
+				height: 150px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			/* Второй и третий квадрат квадрат содержит class="white-text" */
+			.white-text{
+				color: white; //текст во втором квадрате - будет белый
+			}
+
+			/* 6. Групповой селектор - определяет стиль для группы элементов: HTML <img> и с атрибутом class="white-space" */
+			/*    Второй и третий квадрат соответсвуют критериям отбора */
+			img, .white-text{
+				border: 2px red solid;
+			}
+			
+			/* 7. Cтиль для объединенного селектора - элемент должен обладать всеми состовляющими. Элементы перечисляются без пробелов */
+			/*    Второй и третий квадрат соответсвуют. Во втором квадрате текст будет по центру */
+			div.black-square.white-text{
+				text-align: center; /* выравнивание текста по центру в горизонтали */ 
+				line-height: 150px; /* выравнивание текста по центру вертикали */
+			}
+			
+			/* 8. Стиль селектор с потомками */
+			/*    Все рамки будут идти с отступами вокруг черного квадрата */
+			.square1 div{
+				padding: 20px;
+				border: 2px cyan solid;
+				display: inline-block;
+			}
+
+			/* 9. Стили селектор дочерних элементов */
+			/*    с отступом будет идти одна рамка  */
+			.square2 > div{
+				padding: 20px;
+				border: 2px cyan solid;
+				display: inline-block;
+			}
+			
+			/* 10. стили для смежных элементов */
+			.level1~span{
+				color: red;
+			}
+			
+			/* 11. селектор атрибутов */
+			input[type="text"]{
+				border: 2px red solid;
+			}
+			
+			/* 12. селектор атрибутов с маской (* - во всем атрибуте, ^ - в начале, $ - в конце ) */
+			a[href*="digdes"]{
+				font-size: 24px;
+				color: cyan;
+			}
+		</style>
+	</head>
+	<body id="content">
+		<div class="header1">Селекторы CSS</div>
+
+		<div class="header2">Селекторы с классом .black-square (стили 1-7)</div>
+		<div>
+			<div class="black-square"></div>
+			<div class="black-square white-text">Не очень черный</div>
+			<img class="black-square white-text" src="06-logo-dd.png" alt="Логотип DD" />-это img
+		</div>
+		
+		<div class="header2">Селектор с потомками (стиль 8)</div>
+		<div class="square1">
+			<div>
+				<div>
+					<div>
+						<img class="black-square white-text" src="06-logo-dd.png" alt="Логотип DD" />
+					</div>
+				</div>				
+			</div>
+		</div>
+		
+		<div class="header2">Селектор дочерних элементов (стиль 9)</div>
+		<div class="square2">
+			<div>
+				<div>
+					<div>
+						<img class="black-square white-text" src="06-logo-dd.png" alt="Логотип DD" />
+					</div>
+				</div>				
+			</div>
+		</div>
+		
+		<div class="header2">Селектор элементов одного уровня иерархии (стиль 10)</div>
+		<h3 class="level1">Стартовый элемент (1 уровень)</h3>
+		<p>Предисловие</p>
+		<span>
+			Первый span (1 уровень)
+		</span>		
+		<div>
+			<span>Второй span (2 уровень)</span>
+		</div>
+		<span>
+			Третий span (1 уровень)
+		</span>
+		<h4>Послесловие h4</h4>
+
+		<div class="header2">Селектор атрибутов(стиль 11)</div>
+		<p><input type="text" id="login" /></p>
+		<p><input type="password" id="password" /></p>			
+		<input type="submit" value="Ввод" />
+		
+		<div class="header2">Селектор атрибутов с выбором по маске(стиль 12)</div>
+		<p><a href="https://jetbrains.ru">JetBrains</a></p>
+		<p><a href="https://digdes.ru">Digital Design</a></p>
+		<p><a href="https://yandex.ru">Yandex</a></p>
+			
+	</body>
+</html>

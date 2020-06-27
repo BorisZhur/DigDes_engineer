@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+	<base href="image/">
+    <meta charset="utf-8">
+    <title>11_Формы ввода</title>
+  </head>
+  <body>
+	<div style="margin-left: 200px;">
+		<h1>Различные формы ввода</h1>
+
+		<h3>Ввод чисел</h3>		
+		<fieldset>
+			<legend>Ввод положительного целого числа в диапазоне от 0 до 30 с шагом 5</legend>
+			<form method="post" action="http://localhost/inp/numb">
+				<p>
+					<input type="number" min="0" max="30" step="5" value="5" name="numb" required />
+				</p>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Ввод с помощью ползунка</legend>
+			<form method="post" action="http://localhost/measure/temperature">
+				<p>
+					Термометр 32.0<input type="range" min="32.0" max="42.0" step="0.1" value="36.6" name="range" required />42.0
+				</p>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		
+		<h3>Ввод различных параметров</h3>		
+		<fieldset>
+			<legend>Выбор цвета из палитры</legend>
+			<form method="post" action="http://localhost/inp/color">
+				<p>
+					<input type="color" id="selcolor" name="selcolor" />
+				</p>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Ввод url,email,телефона</legend>
+			<form method="post" action="http://localhost/inp/params">
+				<p>
+					<label for="url">URL: </label>
+					<input type="url" id="url" name="url"/>
+				</p>
+				<p>
+					<label for="email">Email: </label>
+					<input type="email" placeholder="user@gmail.com" id="email" name="email"/>
+				</p>
+				<p>
+					<label for="phone">Телефон: </label>
+					<input type="tel" placeholder="(XXX)-XXX-XXXX" id="phone" name="phone"/>
+				</p>				
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<br>
+		<fieldset>
+			<legend>Изучаемые языки и технологии (переключатели чек-боксы)</legend>
+			<form method="post" action="http://localhost/inp/checkbox">
+				<p>
+					<input type="checkbox" id="csharp" name="csharp" checked /> C#
+				</p>
+				<p>
+					<input type="checkbox" id="sql" name="sql" checked /> SQL
+				</p>
+				<p>
+					<input type="checkbox" id="html5-css3" name="html5-css3" /> HTML5 + CSS3
+				</p>
+				<p>
+					<input type="checkbox" id="javascript" name="javascript" /> JavaScript
+				</p>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Выбор темы занятия (переключатели радио-кнопки)</legend>
+			<form method="post" action="http://localhost/inp/radio">
+				<p>
+					<input type="radio" value="csharp" name="subject" /> C#
+				</p>
+				<p>
+					<input type="radio" value="sql" name="subject" /> SQL
+				</p>
+				<p>
+					<input type="radio" value="html5-css3" name="subject" checked /> HTML5 + CSS3
+				</p>
+				<p>
+					<input type="radio" value="javascript" name="subject" /> JavaScript
+				</p>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Выбор темы занятия из списка</legend>
+			<form method="post" action="http://localhost/inp/select">
+				<select id="subject" name="subject">
+					<option value="c#">C#</option>
+					<option value="c#">SQL</option>
+					<option value="c#">HTML5 + CSS3</option>
+					<option value="c#">JavaScript</option>					
+				</select>
+				<p>
+					<input type="submit" value="Ввести" />
+				</p>
+			</form>
+		</fieldset>
+	
+	</div>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>13_Задание фона</title>
+	<style>
+		.content{
+			padding: 30px 20px 30px 200px;
+			color: red; /* цвет будет унаследован всеми элементами последователями */
+			background-color: #d7d7d7;
+			height: 100em;
+		}
+		.header3{
+			color: #000;!important /* для элементов с классом "header3" будет принудительно установлен черный цвет */
+		}
+		
+		.square1{
+			display: inline-block;
+			width: 200px;
+			height: 200px;
+			background-color: rgba(20%, 30%, 40%, 1); /* задание цвета через проценты с прозрачностью 1 */
+		}
+		.square2{
+			display: inline-block;
+			margin-left: 20px;
+			width: 200px;
+			height: 200px;
+			background-color: rgba(20%, 30%, 40%, 0.5); /* задание цвета через проценты с прозрачностью 0.5 */
+		}
+		.square3{
+			display: inline-block;
+			margin-left: 20px;
+			width: 200px;
+			height: 200px;
+			background-color: rgb(20%, 30%, 40%); /* тот же цвет */
+			opacity: .2;					      /* прозрачность чере opacity: 0.2 */
+		}
+		
+		/* Стили с фоном-картинкой */
+		.inner{
+			display: inline-block;
+			width: 200px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			background-color: #e7e7e7;
+			color: brown;
+		}
+		.rect1{
+			display: inline-block;
+			width: 300px;
+			height: 200px;
+			line-height: 200px;
+			text-align: center;
+			border: 2px #878787 solid;
+			border-radius: 10px;	/* задание радиуса бордюра */
+			background-image: url(./image/06-logo-dd.png);
+			background-repeat: repeat; /* по умолчанию, изображение повторяется по оси x и y */
+		}
+		.rect2{
+			display: inline-block;
+			width: 300px;
+			height: 200px;
+			line-height: 200px;
+			text-align: center;
+			border: 2px #878787 solid;
+			border-radius: 10px;
+			margin-left: 20px;
+			background-image: url(./image/06-logo-dd.png);
+			background-repeat: no-repeat; /* изображение не повторяется */
+		}
+		.rect3{
+			display: inline-block;
+			width: 300px;
+			height: 200px;
+			line-height: 200px;
+			text-align: center;
+			border: 2px #878787 solid;
+			border-radius: 10px;
+			margin-left: 20px;
+			background-image: url(./image/06-logo-dd.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;		/* изображение растягивается на всю ширину и высоту блока */
+		}
+		
+	</style>
+	</head>
+  <body>
+	<div class="content">
+	
+		<h1>Задание фона и цветов</h1>
+		
+		<h3 class="header3">Прозрачность/насыщенность</h3>
+		<div>
+			<div class="square1">opacity: 1</div>
+			<div class="square2">opacity: 0.5</div>
+			<div class="square3">opacity: 0.2</div>
+		</div>
+		
+		<h3 class="header3">Фон в виде картинки</h3>
+		<div>
+			<div class="rect1"><div class="inner">Фон с повторением</div></div>
+			<div class="rect2"><div class="inner">Фон без повторения</div></div>
+			<div class="rect3"><div class="inner">Растягивание на весь блок</div></div>			
+		<div>
+		
+	</div>
+	
+  </body>
+</html>

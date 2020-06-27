@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+	<base href="image/">
+    <meta charset="utf-8">
+    <title>10_Формы</title>
+  </head>
+  <body>
+	<div style="margin-left: 200px;">
+		<h1>Формы и отправка данных на сервер</h1>
+
+		<fieldset>
+			<legend>Отправка логина/пароля методом post</legend>
+			<form method="post" action="http://localhost/auth/login">
+				<p>
+					<label for="login">Логин : </label> <input type="text" name="login"/>
+				</p>
+				<p>
+					<label for="login">Пароль: </label> <input type="password" name="password" />
+				</p>
+				<p>
+					<input type="submit" value="Войти" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Отправка даты для поиска данных методом get</legend>
+			<form method="get" action="http://localhost/search/date">
+				<p>
+					<input type="date" name="searchdate" required />
+					<input type="image" src="search.png" name="submit" />
+				</p>
+			</form>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Отправка файлов</legend>		
+			<form enctype="multipart/form-data" method="post" action="http://localhost/load/postfile">
+				<p>
+					<input type="file" name="file" multiple />
+				</p>
+				<p>
+					<input type="submit" value="Отправить" />
+				</p>
+			</form>
+		</fieldset>
+	</div>
+  </body>
+</html>
