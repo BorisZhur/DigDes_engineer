@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>06.DOM</title>
+	</head>
+	<body>
+		<h1 id="main-header">Объектая Модель Документа (Data Object Model)</h1>
+		<div class='action'>
+			<h3>Поиск элементов</h3>
+			<h3>Вставка, добавление, удаление</h3>
+			<h3>Работа со стилями элементов</h3>
+		</div>
+		
+		<script>
+			/* ------------1. Поиск элементов в DOM  ---------------*/
+			/*
+				getElementById(value): выбирает элемент, у которого атрибут id равен value
+				getElementsByTagName(value): выбирает все элементы, у которых тег равен value
+				getElementsByClassName(value): выбирает все элементы, которые имеют класс value
+				querySelector(value): выбирает первый элемент, который соответствует css-селектору value
+				querySelectorAll(value): выбирает все элементы, которые соответствуют css-селектору value
+			*/
+			//запрос элемента по id
+			var mainHeader = document.getElementById('main-header');
+			console.log(`Текст заголовка: ${mainHeader.innerText}`);
+			
+			//запрос элементов по html-тегу
+			var header3Elems = document.getElementsByTagName('h3');
+			for(var i = 0; i < header3Elems.length; i++){
+				console.log(`Тексты элементов h3[ ${i} ]: ${header3Elems[i].innerText}`);
+			}
+			
+			//Поиск первого элемента по запросу css-селектору
+			var actionElem = document.querySelector('div.action');
+			console.log('HTML содержимое элемента div с классом action: ' + actionElem.innerHTML);
+			
+			/* ------------2. Создание, добаление, удаление html-элементов -------------------*/
+			/*
+				createElement(elementName): создает элемент html, тег которого передается в качестве параметра. Возвращает созданный элемент
+				createTextNode(text): создает и возвращает текстовый узел. В качестве параметра передается текст узла.
+				appendChild(newNode): добавляет новый узел newNode в конец коллекции дочерних узлов
+				insertBefore(newNode, referenceNode): добавляет новый узел newNode перед узлом referenceNode						
+			*/
+
+			/* Добавляем элемент в конец заголовков h3 */
+			var endElem = document.createElement('h4');								//создаем в памяти новый элемент
+			var endElemText = document.createTextNode('Это новый элемент в конце ');//создаем в памяти новый текстовый элемент
+			endElem.appendChild(endElemText);										//добавляем текст как дочерний элемент			
+			endElem.className = 'end-element';										//добавляем класс
+			actionElem.appendChild(endElem); //к ранее найденному элементу actionElem добавляем наш новый элемент - он появляется на странице
+
+			
+			/* Добавляем элемент в начало заголовков h3 */
+			var startElem = document.createElement('h4');			//создаем в памяти новый элемент
+			startElem.textContent = 'Это новый элемент в начале';	//создаем в памяти новый текстовый элемент и сразу добавляем
+			startElem.classList.add('start-element');				//добавляем класс в список классов
+			
+			var firstChildElem = actionElem.firstChild; 			//получаем первый элемент, перед которым будет идти добавление
+			actionElem.insertBefore(startElem, firstChildElem); 	//добавляем элемент в блок div перед первым узлом
+																	//для навигации используем nextSibling/previousSibling
+
+			/* Удаляем дочерний элемент с классом start-element */
+			var removableNode = document.querySelectorAll('.start-element')[0];
+			actionElem.removeChild(removableNode);														
+			
+			/* ------------ Управление стилями html-элементов -------------------*/
+			endElem.style.color = 'red';
+			
+		</script>
+	</body>
+</html>

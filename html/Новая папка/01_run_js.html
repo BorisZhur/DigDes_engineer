@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>01.Исполнение JS</title>
+		<script>
+			alert("Заголовок файла");
+		</script>
+	</head>
+	<body>
+		<!-- В chrome возможен глюк, но в ff-норм -->
+		<h1>Последовательное исполнение js</h1>
+		<h3>Строка 1</h3>
+		<script>
+			alert('Строка 1');
+		</script>
+		<h3>Строка 2</h3>
+		<script>
+			alert("Строка 2");
+		</script>
+		<h3>Строка 3</h3>
+
+		<!-- Подключение скрипта из внешнего файла -->
+		<script src="js/01_run_js.js"></script>
+		<h3>Конец</h3>
+	</body>
+</html>

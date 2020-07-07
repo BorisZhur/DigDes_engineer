@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>08.Куки и WebStorage</title>
+		<style>
+			.content{
+				margin-left: 200px;
+			}
+			.cookie{
+				width: 500px;
+				height: 30px;
+			}
+			
+			.webstorage{ 
+				margin-top: 30px; 
+			}
+			.about-cookie{
+				display: inline-block;
+				margin-top: 10px;
+				padding: 5px;
+				border: 1px solid black;
+				min-width: 500px;
+				min-height: 40px;				
+			}
+			#save, #load, #clear{
+				height: 30px;
+				width: 150px;
+				margin-right: 40px;
+			}
+			.output{
+				display: flex;
+				margin-top: 20px
+			}
+			.session-stor, .local-stor{
+				margin-right: 40px;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<h1>08. Куки и WebStorage</h1>
+		
+		<div>
+			<h3>1. Операции с куки</h3>
+			<div><button class="cookie">Информация о текущих куки</button></div>
+			<div class="about-cookie"></div>
+		</div>
+		
+		<div class="webstorage">
+			<h3>2. Операции с WebStorage</h3>
+
+			<div>Введите информацию для сохранения:</div>
+			<TextArea cols="50" rows="5" id="input-text"></TextArea>
+			<div>
+				<input type="button" id="save" value="Сохранить" />
+				<input type="button" id="clear" value="Очистить хранилища" />
+			</div>
+			
+			<div class="output">
+				<div class="session-block">
+					<div>Информация в sessionStorage: </div>
+					<TextArea class="session-stor" cols="50" rows="5"></TextArea>
+				</div>
+				<div class="local-block">
+					<div>Информация в localStorage: </div>
+					<TextArea class="local-stor" cols="50" rows="5"></TextArea>
+				</div>
+			</div>			
+			<input type="button" id="load" value="Загрузить" />
+		</div>
+		
+		<script>
+			/*-----------1. Установка и получение куки testCookie1 и userName ---------------------------*/
+						
+			//простая установка куки как строки
+			document.cookie="testCookie1=value1;path=/;max-age=30;";
+
+			//Вспомогательная функция для установки куки
+			function setCookie (name, value, expires, path, domain, secure) {
+			  document.cookie = name + "=" + escape(value) +
+				((expires) ? "; expires=" + expires : "") +
+				((path) ? "; path=" + path : "") +
+				((domain) ? "; domain=" + domain : "") +
+				((secure) ? "; secure" : "");
+			}
+			//Устанавливаем куки через вспомогательную функцию
+			setCookie("userName", "Petr", "Mon, 01-Jun-2030 00:00:00 GMT", "/");			
+
+			//Вспомогательная функция для получения куки по имени через парсинг строки
+			function getCookie(name) {
+				var cookie = " " + document.cookie;
+				var search = " " + name + "=";
+				var setStr = null;
+				var offset = 0;
+				var end = 0;
+				if (cookie.length > 0) {
+					offset = cookie.indexOf(search);
+					if (offset != -1) {
+						offset += search.length;
+						end = cookie.indexOf(";", offset)
+						if (end == -1) {
+							end = cookie.length;
+						}
+						setStr = cookie.substring(offset, end);
+					}
+				}
+				return(setStr);
+			}			
+						
+			//Добавляем обработчик на кнопку для вывода информации о куки в контейнер
+			document.querySelector(".cookie").addEventListener("click", function(){
+				var userName = getCookie("userName");
+				document.querySelector(".about-cookie").innerHTML = '<div><span>1. Вся строка cookie: </span>' + document.cookie + '</div><br/>' 
+				+ '<div><span>2. Куки userName: </span>' + userName + '</div><br/>'
+			});
+			
+			/* --------------2. Операции с WebStorage. Объекты sessionStorage и localStorage ------------------- */
+					
+			document.getElementById("save").onclick = function(){
+				var text = document.getElementById("input-text").value;
+				//Сохраняем введенный текст в сессионном хранилище
+				sessionStorage.setItem("myText", text);
+				//Сохраняем введенный текст в локальном хранилище				
+				localStorage.setItem("myText", text);				
+			}
+
+			document.getElementById("clear").onclick = function(){
+				//Полностью очищаем сессионное хранилище
+				sessionStorage.clear();
+				//Полностью очищаем локальное хранилище				
+				localStorage.clear();				
+			}
+
+			document.getElementById("load").onclick = function(){
+				//Извлекаем введенный текст из сессионного хранилища
+				var sessionText = sessionStorage.getItem("myText");				
+				//Извлекаем введенный текст из локального хранилища
+				var localText = localStorage.getItem("myText");
+				
+				document.querySelector(".session-stor").value = sessionText;
+				document.querySelector(".local-stor").value = localText;				
+			}
+			
+		
+			
+		</script>
+	</body>
+</html>

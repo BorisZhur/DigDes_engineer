@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>04.Классы(ООП)</title>
+	</head>
+	<body>
+		<h1>04.Классы(ООП)</h1>
+		<script>
+			/* --------1. Описание простейшего класса HomoSapiens -------- */
+			class HomoSapiens{}; 
+			//альтернатива - описание через анонимный класс:
+			//let HomoSapiens = class{};
+			
+			/* Создаем экземпляры объектов кдасса HomoSapiens */
+			let anna = new HomoSapiens();
+			let boris = new HomoSapiens();
+
+			/* --------2. Создаем класс Man со свойствами с помощью конструктора ---------- */
+			class Man {
+				//используем конструктор с параметрами.
+				constructor(name, age){
+					this.name = name;	//this - ключевое слово для определения и привязки свойства к объекту
+					this.age = age;
+				}				
+				about(){
+					//для обращения к свойствам объектам используемa this !
+					console.log(`Экземпляр класса Человек - Имя: ${this.name} Возраст: ${this.age}`);
+				}
+			}
+			let alex = new Man("Алексей", 23);
+			let maria = new Man("Мария", 25);
+			alex.about();
+			maria.about();
+
+			/* -------------------------------3. Наследование ------------------------------ */
+
+			class Student extends Man { //используем ключевое слово extend
+
+				constructor(name, age, speciality){
+					super(name, age); //передаем значения инициализации в базовый объект
+
+					this.speciality = speciality; //инициализируем новое свойство специальность					
+				}
+				//переопределение метода about
+				about(){
+					super.about(); //с помощью super - обращаемся к методу в базовом объекте 
+					console.log(`Учится по специальности: ${this.speciality}`);
+				}
+				//добавляем метод howStudy
+				howStudy(mark){
+					console.log(`Студент(ка) ${this.name} учится ${mark}`);
+				}
+				//добавляем статическиий метод
+				static nameToUppper(student){
+					//использование this недопустимо, т.к. обращаемся не к конкретному экземпляру, а ко всему классу
+					return student.name.toUpperCase();
+				}
+			}
+			
+			let elena = new Student('Елена', 22, 'Фронтенд-разработчик');
+			elena.about();
+			elena.howStudy('отлично');
+
+			let nameUpper = Student.nameToUppper(elena);
+			console.log(`Имя студента(ки) в верхнем регистре: ${nameUpper}`)
+		</script>
+	</body>
+</html>

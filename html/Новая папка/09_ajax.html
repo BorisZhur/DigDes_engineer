@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>09.Ajax</title>
+		<style>
+			.content{
+				margin-left: 200px;
+			}
+			.block{
+				margin-bottom: 30px;
+			}
+			#sync, #async, #get-request, #post-request{
+				height: 30px;
+				width: 150px;
+				margin: 10px 50px 10px 0;
+			}
+			.response-info, .company-info{
+				padding: 5px;
+				width: 570px;
+				min-height: 200px;
+				border: 1px solid #ccc;
+			}
+			.text-italic{
+				text-decoration: underline;
+				font-style: italic;
+			}
+			
+			.param-request{
+				display: inline-block;
+				margin: 0 20px 20px 0;
+				padding: 10px;
+				border: 1px solid #ccc;
+			}
+			select{
+				height: 30px;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<h1>09. Ajax-запросы</h1>
+
+		<div class="block">
+			<h3>1. Синхронный и асинхронный AJAX-запрос. Стадии исполнения</h3>
+			<button id="sync">Синхронный запрос</button>
+			<button id="async">Асинхронный запрос</button>
+			<label>Событие onload: <input type="checkbox" id="onload" /></label>
+			<div>Текст ответа:</div>
+			<div class="response-info"></div>
+		</div>
+
+		<div class="block">
+			<h3>2. Запросы GET и POST с параметрами</h3>
+			<h3>Поиск информации о компании</h3>
+			<div>
+				<div class="param-request">
+					<div><button id="get-request">GET-запрос</button></div>
+					<label>Выберите ИД компании:
+						<select name="company-id" id="company-id">
+						  <option selected="selected">1</option>
+						  <option>2</option>
+						  <option>3</option>
+						  <option>4</option>
+						</select>
+					</label>
+				</div>
+				<div class="param-request">
+					<div><button id="post-request">POST-запрос</button></div>
+					<label>Выберите имя компании:
+						<select name="company-name" id="company-name">
+						  <option selected="selected" value="Digital Design">Диджитал Дизайн</option>
+						  <option value="Yandex">Яндекс</option>
+						  <option value="КРОК">КРОК</option>
+						  <option value="1C">1C</option>
+						</select>
+					</label>
+				</div>
+			</div>
+			<div>Текст ответа:</div>
+			<div class="company-info"><div>
+		</div>
+		
+		
+		<script>
+			//Инициализируем элементы управления
+			var responseInfo = document.querySelector(".response-info");
+			var onLoadCheck = document.querySelector("#onload");
+			document.getElementById("sync").addEventListener('click', syncRequest);
+			document.getElementById("async").addEventListener('click', asyncRequest);
+
+			/* ----------------- 1.1. Синхронный Ajax-запрос ---------------------- */
+			// Пользоваться не надо !!!
+			function syncRequest(){
+				responseInfo.innerText = 'Синхронный запрос отправлен серверу...';
+				var request = new XMLHttpRequest();
+				request.open("GET", "http://school2020.localhost:8080/api/info/GetSyncResponse", false); //в 3-м параметре указано синхронное выполнение запроса
+				request.send();
+				var status = request.status;				
+				if(status==200){
+					responseInfo.innerText = request.responseText;
+				} else {
+					responseInfo.innerText = request.statusText;
+				}
+			}
+
+			/* ----------------- 1.2. Acинхронный Ajax-запрос. Стадии исполнения ---------------------- */
+
+			var request2 = new XMLHttpRequest();
+
+			//Метод для обработки состояний
+			function handlerStateChange() {
+				if(request2.readyState == 0){
+					responseInfo.innerHTML = '<div>0. Объект XMLHttpRequest создан, метод open() еще не вызван</div>'
+				} else if(request2.readyState == 1){
+					responseInfo.innerHTML += '<div>1. Метод open() был вызван, запрос еще не отправлен методом send()</div>'
+				} else if(request2.readyState == 2){
+					responseInfo.innerHTML += '<div>2. Запрос был отправлен</div>'
+				} else if(request2.readyState == 3){
+					responseInfo.innerHTML += '<div>3. Ответ получен от сервера</div>'
+				} else if (request2.readyState == 4) {
+					var status = request2.status;
+						responseInfo.innerHTML += '<div>4. Запрос полностью завершен</div>'
+					if (status == 200) {
+						responseInfo.innerHTML += '<div><b>' + request2.responseText + '</b></div>'
+					} else {
+						responseInfo.innerHTML += '<div><b>'+ request2.statusText + '</b></div>'
+					}
+				}
+			}
+			
+			//Асинхронный вызов
+			function asyncRequest(){
+				if(onLoadCheck.checked){
+					// Устанавливаем обработчик события изменения состояния запроса только после завершения запроса
+					request2.onload = handlerStateChange;								
+					responseInfo.innerHTML='<div class="text-italic">Обработка через onload</div>';
+					request2.onreadystatechange = null;																	
+				} else {
+					// Устанавливаем обработчик события изменения состояния запроса
+					request2.onreadystatechange = handlerStateChange;												
+					responseInfo.innerHTMLj='<div class="text-italic">Обработка через onreadystatechange</div>';			 
+					request2.onload = null;													
+				}
+				request2.open("GET", "http://school2020.localhost:8080/async.txt", true);
+				request2.send();
+			}
+			
+			/* ----------------- 2. GET-запрос с параметрами ---------------------- */
+			//Инициализируем элементы управления
+			var companyInfo = document.querySelector(".company-info");
+			var companyId = document.querySelector("#company-id");
+			var companyName = document.querySelector("#company-name");
+			document.getElementById("get-request").addEventListener('click', companyInfoGetById);
+			document.getElementById("post-request").addEventListener('click', companyInfoPostByName);
+
+			var request3 = new XMLHttpRequest();
+
+			function handlerCompanyInfo(){
+				var status = request3.status;
+				if (status == 200) {
+					//Десериализуем результат запроса из строки в объект  
+					var company = JSON.parse(request3.responseText);
+					companyInfo.innerHTML += '<div><b>Ид: </b>' + company.id + '</div>'
+					companyInfo.innerHTML += '<div><b>Компания: </b>' + company.name + '</div>'
+					companyInfo.innerHTML += '<div><b>Год основания: </b>' + company.year + '</div>'
+					companyInfo.innerHTML += '<div><b>Деятельность: </b>' + company.info + '</div>'
+				} else {
+					companyInfo.innerHTML = '<div><b>'+ request3.statusText + '</b></div>'
+				}
+			}
+			
+			//Запрашиает информацию о компании по Id
+			function companyInfoGetById(){
+				// Устанавливаем обработчик события изменения состояния
+				request3.onload = handlerCompanyInfo;
+				//Получаем выбранный идентификатор из списка
+				var id = companyId.options[companyId.selectedIndex].value;
+				//Формируем строку запроса
+				var queryParam = "?id=" + encodeURIComponent(id);
+				//Открываем запрос
+				request3.open("GET", "http://school2020.localhost:8080/api/info/GetInfo" + queryParam);
+				request3.send();
+				companyInfo.innerHTML='<div class="text-italic">Результаты GET-запроса:</div>';
+			}
+
+			//Запрашиает информацию о компании по имени
+			function companyInfoPostByName(){			
+				// Устанавливаем обработчик события изменения состояния
+				request3.onload = handlerCompanyInfo;								
+
+				// Получаем выбранное имя из списка
+				var name = companyName.options[companyName.selectedIndex].value;
+				// Формируем объект для запроса
+				var data = { 
+					id: 0, 
+					name: name 
+				};
+				// Сериализуем объект - формируем тело POST запроса
+				var body = JSON.stringify(data);			
+				// Открываем запрос
+				request3.open("POST", "http://school2020.localhost:8080/api/info/PostInfo");
+				// Устанавливаем заголовок для правильного принятия сервером данных в формате JSON
+				request3.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+				//request3.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');				
+				request3.send(body);
+				companyInfo.innerHTML='<div class="text-italic">POST-запрос</div>';		
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>02.Типы и переменные</title>
+	</head>
+	<body>
+		<h1>02. Типы и переменные</h1>
+		<script>
+			/* ============== 1. Глобальные и локальные переменные и var ================== */
+
+			var strVar = "Глобальная переменная";
+			
+			/* Объявление функции */
+			function testFunc1(){
+				var strVar; //сокрытие (экранирование) глобальной переменной 
+				strVar = "Локальная переменная";
+				console.log("2. strVar = " + strVar); //в консоли "Локальная переменная"
+			}
+			console.log('1. strVar = ' + strVar); //в консоли - "Глобальная переменная"
+			
+			testFunc1(); //вызов функции
+	
+			/* ============== 2. Блоки, локальные переменные и let/const ================== */
+
+			function testFunc2(){
+				let x = 0; //переменная через let
+				{
+					let x = 5;
+					console.log("3. x = " + x); //в консоли x = 5
+				}
+				console.log("4. x = " + x); //в консоли x = 0	
+				
+			    /* Если вместо let поставить var - получим ошибку "Переменная уже определена" */
+			}
+			testFunc2(); //вызов функции
+
+			/* ============== 3. Слабая типизация ================== */
+
+			function testFunc3(){
+				var str = "Это строка";
+				console.log('5. ' + str + ' тип: ' + typeof str); // в консоли "Это строка тип: string"
+
+				str = 2020;
+				console.log('6. ' + str + ' тип: ' + typeof str); // в консоли "2020 тип: number"
+
+				str = { company: 'Digital Design', year: 1992 }; 
+				//Здесь вместо конкатенации значений в строке используем шаблон
+				console.log(`7. company: ${str.company} ${str.year} тип: ${typeof str}`); // в консоли "company: Digital Design 1992 тип: object"
+				
+				//Создаем массив
+				str = ["Первый элемент", 2, {company: 'Digital Design', year: 1992}, true, undefined, null];
+				console.log(`8. Тип массива: ${typeof str} Проверка Array.isArray: ${Array.isArray(str) ? 'это массив': 'это не массив' }`);
+				//выводим значения массива в цикле
+				for(var item of str){
+					console.log(item);
+				}
+				
+			}
+			testFunc3(); //вызов функции
+			
+			/* ============== 4. Операторы равенства и тождественности ================== */
+			function testFunc4(){
+				console.log(`проверяем равенство 5 == "5" : ${ 5 == "5" }`); // true
+				console.log(`проверяем тождественность 5 === "5" : ${ 5 === "5" }`); // false
+				const x = 5;
+				console.log(`проверяем тождественность 5 === ${x} : ${ 5 === x }`); // true
+			}
+			testFunc4();
+	
+		</script>
+	</body>
+</html>

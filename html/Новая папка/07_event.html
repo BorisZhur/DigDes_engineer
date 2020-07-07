@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>07.Обработка событий</title>
+		<style>
+			.props-handler{
+				margin: 50px 0 50px 100px;
+				height: 30px;
+				width: 300px;
+			}
+			
+			.remove-listener{
+				height: 30px;
+				width: 300px;
+			}
+			.output-listener{
+				border: red 2px solid;
+				display: inline-block;
+				padding: 20px;
+				min-height: 100px;
+				min-width: 500px;
+			}
+			
+			.red-rect{
+				display: inline-block;
+				background-color: red;
+				height: 100px;
+				width: 100px;
+			}
+			.yellow-rect{
+				display: inline-block;
+				background-color: yellow;
+				padding: 50px;
+			}
+			.blue-rect{
+				display: inline-block;
+				background-color: blue;
+				padding: 50px;
+				vertical-align: top;
+			}
+			.output-bubble{
+				border: red 2px solid;
+				padding: 20px;
+				min-height: 100px;
+				min-width: 500px;				
+			}
+			.bubble-block{
+				display: inline-block;			
+			}
+		</style>
+	</head>
+	<body style="margin-left: 100px;">
+		<h1>07. Обработка событий</h1>
+
+		<!-- 1. Встроенный обработчик непосредственно в div-элементе. Не рекомендуется к использованию! -->
+		<h3>1. Встроенный обработчик в div-элементе</h3>
+		<div onclick="alert('Это встроенный обработчик');">Нажмите на надпись</div>
+
+		<!-- 2. Обработчик как свойство элемента -->
+		<h3>2. Обработчик как свойство элемента</h3>
+		<button class='props-handler'>Обработчик как свойство элемента</button>
+		<label>Количество нажатий: <input type='text' value='0' readonly/></label>
+
+		<!-- 3. Cлушатели событий -->
+		<h3>3. Cлушатели событий</h3>
+		<button class='remove-listener'>Удалить 2-го слушателя события click</button>
+		<h4>Нажмите на квадрат</h4>
+		<div class='output-listener'></div>
+
+		<!-- 4. Восходящие/нисходящие события -->
+		<h3>4. Восходящие/нисходящие события</h3>
+		<div class='blue-rect'>
+			<div class='yellow-rect'>
+				<div class='red-rect'>Нажмите</div>
+			</div>
+		</div>
+		<div class='bubble-block'>
+			<label><input type='checkbox' class="stop-propagation" /> Остановить распространение</label><br/>
+			<label><input type='checkbox' class="capture-checkbox" /> Нисходящее событие</label>
+			<div class='output-bubble'></div>
+			
+		</div>
+		<script>
+		
+			/* ----------- 2.Обработчик как свойство элемента ---------*/			
+			var countClick = 0;
+			var inputCountClick = document.querySelector('input[type="text"]');
+			var simpleBtn = document.querySelector('.props-handler');
+			simpleBtn.onclick = function(event){
+				inputCountClick.value = ++countClick;
+			}
+			
+			/* ----------- 3.Слушатели событий ---------*/
+			var outputRect = document.querySelector('.output-listener');
+
+			//Добавляем 3 обработчика события как слушателей
+			outputRect.addEventListener('click', handler1);
+			outputRect.addEventListener('click', handler2);
+			outputRect.addEventListener('click', handler3);
+			//Обработчики
+			function handler1(){
+				outputRect.innerHTML += 'Это первый обработчик<br/>';
+			}
+			function handler2(){
+				outputRect.innerHTML += 'Это второй обработчик<br/>';
+			}
+			function handler3(){ 
+				outputRect.innerHTML += 'Это третий обработчик<br/>';
+			};
+		
+			//Кнопка удаления 2-го события
+			var removeButton = document.querySelector('.remove-listener');
+			removeButton.onclick = function(event){
+				outputRect.removeEventListener('click', handler2); //Удаляем 2-го слушателя по имени события и по хэндлеру события
+				outputRect.innerHTML = null; //Очищаем содержимое прямоугольника 
+			}
+
+			/* ----------- 4.Восходящее/нисходящее событие ---------*/
+						
+			//Элементы div - вложенные квадраты
+			var blueRect = document.querySelector('.blue-rect');
+			var yellowRect = document.querySelector('.yellow-rect');
+			var redRect = document.querySelector('.red-rect');
+
+			//Методы обработчики обытий на квадратах
+			function handlerBlueRect(event){
+				if(document.querySelector(".stop-propagation").checked){
+					event.stopPropagation(); //Если выбран флаг, останавливаем дальнейшее распространение события
+				}
+				outputBubble.innerHTML += 'Синий квадрат <br/>'; 
+			}
+			function handlerYellowRect(event){ 
+				if(document.querySelector(".stop-propagation").checked){
+					event.stopPropagation(); //Если выбран флаг, останавливаем дальнейшее распространение события
+				}
+				outputBubble.innerHTML += 'Желтый квадрат <br/>'; 
+			}
+			function handlerRedRect(event){
+				if(document.querySelector(".stop-propagation").checked){
+					event.stopPropagation(); //Если выбран флаг, останавливаем дальнейшее распространение события
+				}
+				outputBubble.innerHTML += 'Красный квадрат <br/>'; 
+			}
+			
+			//Инициализируем слушателей на вложенных квадратах
+			function initEventListeners(checked){
+				blueRect.addEventListener('click', handlerBlueRect, checked);
+				yellowRect.addEventListener('click', handlerYellowRect, checked);
+				redRect.addEventListener('click', handlerRedRect, checked);
+			};
+			initEventListeners(false);
+			
+			//Удаление слушателей
+			function deleteEventListeners(checked){
+				// Обратите внимание - удалять надо указывая флаг в 3-м параметре!!!
+				blueRect.removeEventListener('click', handlerBlueRect, checked);
+				yellowRect.removeEventListener('click', handlerYellowRect, checked);
+				redRect.removeEventListener('click', handlerRedRect, checked);
+			}
+			
+			//Переключатель восходящее/нисходящее
+			var checkBox = document.querySelector('.capture-checkbox');
+			//обработчик на изменение флага
+			checkBox.addEventListener('change', function(event){
+				var checked = event.target.checked; //извлекаем новое значение из параметра-события
+				deleteEventListeners(!checked); //сначала удаляем имеющиеся слушатели событий
+				initEventListeners(checked); //При изменении переключателя восходящее/нисходящее - необходимо переинициализировать слушателей событий
+				outputBubble.innerHTML = '';
+			});
+
+			//Событие - очистка окна вывода информации
+			var outputBubble = document.querySelector('.output-bubble');
+			outputBubble.addEventListener('click', function(event){
+				outputBubble.innerHTML = '';
+			});
+			
+		</script>
+	</body>
+</html>

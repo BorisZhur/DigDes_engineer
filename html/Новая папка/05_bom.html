@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>05.BOM</title>
+	</head>
+	<body>
+		<h1>Object Browser Model</h1>
+		<script>
+			/* ---- 1. Объект window: Открытие и закрытие окна браузера ----------------- */
+
+			//Открываем дополнительное окно браузера
+			var popup = window.open('https://digdes.ru', 'Didgital Design', 'width=800, height=600, resizable=yes, left=50, top=50');
+
+			//Закрываем окно через 10 секунд. Используем стрелочную функцию	(в IE - не работает!)		
+			closeWindow = () => { if(popup){ popup.close(); } }; //альтернатива: closeWindow = function(){ if(popup){ popup.close(); } };
+			setTimeout(closeWindow, 10000);
+			
+			/* ---- 2. Объект location ----------------- */
+			document.write('Изучаем объект location. Данные текущего сайта: <br/>');
+			document.write(`Строка запроса: ${location.href} <br/>`);
+			document.write(`Путь к ресурсу: ${location.pathname} <br/>`);
+			document.write(`Схема: ${location.origin} <br/>`);
+			document.write(`Протокол: ${location.protocol} <br/>`);
+			document.write(`Порт: ${location.port} <br/>`);
+			document.write(`Хост: ${location.host} <br/>`);
+			document.write(`Имя хоста: ${location.hostname} <br/>`);
+			document.write(`Хэш: ${location.hash} <br/>`);
+			document.write(`Атрибуты поиска: ${location.search} <br/>`);
+			
+			// Переход на сайт Digital Design с запросом
+			goToDigDes = () => {
+				result = confirm('Перейти на сайт Digital Design ?');
+				if(result){
+					let url = 'https://digdes.ru';
+					location.assign(url); // загружает ресурс, который находится по пути url с сохранением в истории
+					//location.href = url; // загружает ресурс, который находится по пути url с сохранением в истории
+					//location.replace(url); // загружает ресурс, который находится по пути url БЕЗ сохранения в истории
+				}
+			}
+			setTimeout(goToDigDes, 15000);
+
+			/* ---- 3. Объект history ----------------- */
+			console.log('Количество страниц в истории браузера: ' + history.length);
+			//history.back(); 		//перемещение назад
+			//history.forward(); 	//перемещение вперед
+			//history.go(-2); 		//переход на 2 страницы назад
+			//history.go(2); 		//переход на 2 страницы вперед
+			
+			/* ---- 4. Объект navigator ----------------- */
+			console.log('---- Объект navigator -----------------');
+			console.log('navigator.userAgent: ' + navigator.userAgent); //определяем браузер и ОС
+
+			/* Вывод координат геопозиции */
+			navigator.geolocation.getCurrentPosition(success, error);
+			function success(position) {
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				var altitude = position.coords.altitude;
+				var speed = position.coords.speed;
+				 
+				console.log("Широта: " + latitude);
+				console.log("Долгота: " + longitude);
+				console.log("Высота: " + altitude);
+				console.log("Скорость перемещения: " + speed);
+			};
+			/* При ошибке или отказе */ 
+			function error(obj) {
+				console.log("Ошибка или отказ при определении положения");
+			};
+			
+		</script>
+	</body>
+</html>
