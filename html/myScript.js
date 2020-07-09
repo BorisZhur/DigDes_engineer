@@ -6,7 +6,7 @@ function myScriptFunc (){
 	x.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=524901&appid=6385d1369c67c03f03328a1a63a2f5a1&units=metric", true);
 
 	
-		x.onload = function myGet(){
+		x.onload = function (){
 			
 			//document.write(x.responseText)
 			var data = JSON.parse(x.responseText)
@@ -32,7 +32,7 @@ function myScriptFuncOnClick(){
 	var y = new XMLHttpRequest();
 	y.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=524901&appid=6385d1369c67c03f03328a1a63a2f5a1&units=metric", true);
 	
-		y.onload = function myGet(){
+		y.onload = function (){
 			
 			//document.write(x.responseText)
 			var data = JSON.parse(y.responseText)
