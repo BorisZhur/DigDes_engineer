@@ -23,10 +23,10 @@ function myScriptFunc (){
 		var temp = document.getElementById("temp")
 		temp.innerHTML = "error"
 	}
-	setInterval(myScriptFunc,10000)	
-	x.send(null);
+	
+	x.send();
 }
-
+setInterval(myScriptFunc,10000)
 function myScriptFuncOnClick(){
 	var y = new XMLHttpRequest();
 	y.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=524901&appid=6385d1369c67c03f03328a1a63a2f5a1&units=metric", true);
@@ -52,5 +52,5 @@ function myScriptFuncOnClick(){
 		var temp = document.getElementById("temp")
 		temp.innerHTML = "error"
 	}	
-	y.send(null);
+	y.send();
 }
